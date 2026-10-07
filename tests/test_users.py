@@ -36,7 +36,7 @@ def  test_get_users_returns_created_users(client):
     assert data[0]["userid"] == 10
     assert data[0]["name"] == "Alice"
 
-def test_get_existimg_user_returns_200(client):
+def test_get_existing_user_returns_200(client):
     client.post("/api/users", json=user_payload(uid=11))
 
     response = client.get("/api/users/11")
