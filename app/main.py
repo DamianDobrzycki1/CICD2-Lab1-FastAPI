@@ -1,5 +1,7 @@
 from fastapi import Depends, FastAPI, HTTPException, status, Response
 from app.schemas import UserCreate, UserRead
+import httpx
+from app.product_client import get_product_fetcher
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -10,7 +12,7 @@ from app.models import Base, UserDB
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title= "lab3 - FastAPI SQLAlchemy User API")
+app = FastAPI(title= "lab5 - HTTPX with Microservices")
 
 users: list[UserCreate] = []
 
@@ -69,4 +71,17 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(db_user)
     db.commit()
     return
+
+@app.get("/api/products/{products_id}")
+def get_remote_product(
+    product_id: int,
+    product_fetcher = Depends(get_product_fetcher)
+):
+    try:
+        return product_fetcher(product_id)
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 404:
+            raise HTTPException(404, "Product not found") from e
+    except httpx.RequestError as e:
+        raise HTTPException(503, "Product service unavailable") from e
     
