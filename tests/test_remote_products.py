@@ -24,7 +24,7 @@ def fake_product_missing(product_id: int):
         "GET", f"http://example.test/products/{product_id}"
     )
     response = httpx.Response(404, request = request)
-    raise httpx.HTTPSStatusError(
+    raise httpx.HTTPStatusError(
         "Not found", request= request, response= response
     )
 

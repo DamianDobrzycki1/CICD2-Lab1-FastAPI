@@ -72,7 +72,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.commit()
     return
 
-@app.get("/api/products/{products_id}")
+@app.get("/api/products/{product_id}")
 def get_remote_product(
     product_id: int,
     product_fetcher = Depends(get_product_fetcher)
