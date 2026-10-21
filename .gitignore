@@ -5,4 +5,9 @@ venv/
 .pytest_cache/ 
 .coverage 
 htmlcov/ 
-app.db
+app.db__pycache__/
+*.pyc
+__pycache__/
+*.pyc
+.coverage
+*.db
