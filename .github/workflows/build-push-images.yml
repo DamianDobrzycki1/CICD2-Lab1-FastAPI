@@ -32,8 +32,7 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
             
-        - name: Build and Push User Service
-        - name: Build and Push Product Service
+        - name: Build and Push User Service and Product Service Images
           uses: docker/build-push-action@v6
           with:
             context: .
