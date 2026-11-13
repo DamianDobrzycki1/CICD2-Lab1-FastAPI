@@ -36,8 +36,9 @@ jobs:
           uses: docker/build-push-action@v6
           with:
             context: .
-            file: ./Dockerfile.user 
-            file: ./Dockerfile.product
+            file: | 
+                ./Dockerfile.user 
+                ./Dockerfile.product
             push: true
             tags: | 
               ${{ env.IMAGE }}/user-service:latest
